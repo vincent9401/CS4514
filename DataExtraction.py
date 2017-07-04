@@ -1,9 +1,13 @@
 import xml.etree.ElementTree as ET
 import fileinput
 
+
 class DataExtraction:
 
-    def readXML(self, file):
+    def __init__(self):
+        pass
+
+    def read_xml(self, file):
         tree = ET.parse(file)
         root = tree.getroot()
 
@@ -24,7 +28,7 @@ class DataExtraction:
             print link_id, region, road_type, road_saturation_level, traffic_speed, capture_date
 
 
-    def modifyXML(self, xmlfile):
+    def modify_xml(self, xmlfile):
         keyword = ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://data.one.gov.hk/td ' \
                   'http://data.one.gov.hk/xsd/td/speedmap.xsd" xmlns="http://data.one.gov.hk/td"'
 
@@ -33,3 +37,6 @@ class DataExtraction:
             if keyword in line:
                 line = line.replace(keyword, '')
             print line
+
+    def readDataDictionary(self):
+        print ''
