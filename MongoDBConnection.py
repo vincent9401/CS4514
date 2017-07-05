@@ -15,6 +15,10 @@ class MongoDBConnection:
         collection = db.tsm_spec
         return collection
 
+    def use_collection_tsm(self, db):
+        collection = db.traffic_speed_map
+        return collection
+
     def insert_document(self, collection, document):
         collection.insert(document)
 
@@ -24,5 +28,10 @@ class MongoDBConnection:
     def remove_all_document(self, collection):
         collection.remove()
 
+    def query_document_number(self, collection, document):
+        no_of_document = collection.find(document).count()
+        return no_of_document
+
     def get_collection_size(self, collection):
-        return collection.find().count()
+        collection_size = collection.find().count()
+        return collection_size

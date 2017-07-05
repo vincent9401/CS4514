@@ -28,7 +28,6 @@ class DataExtraction:
         print('Attribute: ')
         print root.attrib
 
-        print ('Data:')
         for speedmap in root.findall('jtis_speedmap'):
             link_id = speedmap.find('LINK_ID').text
             region = speedmap.find('REGION').text
@@ -37,7 +36,25 @@ class DataExtraction:
             traffic_speed = speedmap.find('TRAFFIC_SPEED').text
             capture_date = speedmap.find('CAPTURE_DATE').text
 
-            print link_id, region, road_type, road_saturation_level, traffic_speed, capture_date
+            speed_map = { "Link ID": link_id,
+                          "Region": region,
+                          "Road Type": road_type,
+                          "Road Saturation Level": road_saturation_level,
+                          "Traffic Speed": traffic_speed,
+                          "Capture Date": capture_date }
+
+            mongodb_connection = MongoDBConnection()
+            mongodb = mongodb_connection.connect_db()
+            collection = mongodb_connection.use_collection_tsm(mongodb)
+
+            if mongodb_connection.query_document_number(collection, speed_map) == 0:
+                mongodb_connection.insert_document(collection, speed_map)
+                print "{} is put into database!".format(speed_map)
+
+            #print link_id, region, road_type, road_saturation_level, traffic_speed, capture_date
+
+        print 'Data extraction finish.'
+
 
     def extract_data_spec(self, filepath):
         # total number of lines
@@ -56,7 +73,7 @@ class DataExtraction:
             csvfile = open(filepath, 'r')
             for row in csv.DictReader(csvfile.read().splitlines()):
                 # Prepare the document
-                speed_map = {"Link ID": row['Link ID'],
+                data_spec = {"Link ID": row['Link ID'],
                              "Start Node": row['Start Node'],
                              "Start Node Eastings": row['Start Node Eastings'],
                              "Start Node Northings": row['Start Node Northings'],
@@ -71,7 +88,7 @@ class DataExtraction:
                              "Road Type": row['Road Type']}
 
                 print 'Update data specification.'
-                mongodb_connection.insert_document(collection, speed_map)
+                mongodb_connection.insert_document(collection, data_spec)
                 print 'Data specification - [{}] inserts into database.'.format(row['Link ID'])
 
                 # print (row['Link ID'], row['Start Node'],
