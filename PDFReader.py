@@ -4,6 +4,7 @@ from pdfminer.converter import TextConverter
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from cStringIO import StringIO
 
+# Reference: https://stackoverflow.com/questions/26494211/extracting-text-from-a-pdf-file-using-pdfminer-in-python
 class PDFReader:
 
     def convert_pdf_to_txt(self, file_path):

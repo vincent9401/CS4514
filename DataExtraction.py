@@ -19,6 +19,7 @@ class DataExtraction:
                 line = line.replace(keyword, '')
             print line
 
+
     def extract_tsm(self, filepath):
         tree = ET.parse(filepath)
         root = tree.getroot()
