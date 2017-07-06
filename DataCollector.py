@@ -12,9 +12,7 @@ class DataCollector:
                 data = response.read()
 
                 # Write data to file
-                filename = '/Users/Vincent/Desktop/traffic data/{}.xml'.format(row[-14:-1])
+                filename = 'data/tsm/{}.xml'.format(row[-14:-1])
                 file = open(filename, 'w')
                 file.write(data)
                 file.close()
-
-DataCollector().data_download()

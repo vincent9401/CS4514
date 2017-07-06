@@ -28,6 +28,12 @@ class MongoDBConnection:
     def remove_all_document(self, collection):
         collection.remove()
 
+    def query_document(self, collection, keyword):
+        return collection.find(keyword)
+
+    def query_all_document(self, collection):
+        return collection.find()
+
     def query_document_number(self, collection, document):
         no_of_document = collection.find(document).count()
         return no_of_document
