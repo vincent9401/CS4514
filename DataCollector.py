@@ -1,7 +1,11 @@
 import os
 import urllib2
 
+
 class DataCollector:
+
+    def __init__(self):
+        pass
 
     def data_download_with_api_string(self):
         query_string = open('data/tsm_api_query_string.txt', 'r')

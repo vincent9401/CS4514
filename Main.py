@@ -17,6 +17,7 @@ class Main:
         PDFReader().convert_pdf_to_txt(data_spec_path)
         DataExtraction().extract_data_spec("data/tsm_link_and_node_info_v2.csv")
 
+    def read_tsm(self):
         # Extraction the TSM data for each time
         for xmlfile in os.listdir("data/tsm/"):
             if xmlfile.endswith(".xml"):
@@ -29,5 +30,6 @@ class Main:
                 print('Reading end.\n')
 
 #DataCollector().data_download()
-Main().main()
+#Main().main()
+#Main().read_tsm()
 DataVisualization().plot_live_heat_map()
