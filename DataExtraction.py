@@ -103,3 +103,27 @@ class DataExtraction:
             csvfile.close()
         else:
             print 'Data specification is up to date.'
+
+    def extract_traffic_report(self):
+        mongodb_connection = MongoDBConnection()
+        mongodb = mongodb_connection.connect_db()
+        collection = mongodb_connection.use_collection_traffic_accidents(mongodb)
+        mongodb_connection.remove_all_document(collection)
+
+        counter = 1
+        year = 2015
+        csvfile = open('data/traffic_accidents.csv', 'r')
+        for row in csv.DictReader(csvfile.read().splitlines()):
+            accidents = { 'Year' : year,
+                          'Month': row['Month'],
+                          'Fatal': int(row['Fatal']),
+                          'Serious': int(row['Serious']),
+                          'Slight': int(row['Slight']) }
+
+            print 'Update data.'
+            mongodb_connection.insert_document(collection, accidents)
+            print 'Data in - [{}] inserts into database.'.format(year)
+
+            if counter % 12 == 0:
+                year = year - 1
+            counter = counter + 1

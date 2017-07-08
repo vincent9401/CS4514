@@ -2,6 +2,7 @@ from pymongo import MongoClient
 
 
 class MongoDBConnection:
+
     def __init__(self):
         pass
 
@@ -17,6 +18,10 @@ class MongoDBConnection:
 
     def use_collection_tsm(self, db):
         collection = db.traffic_speed_map
+        return collection
+
+    def use_collection_traffic_accidents(self, db):
+        collection = db.traffic_accidents
         return collection
 
     def insert_document(self, collection, document):

@@ -17,6 +17,8 @@ class Main:
         PDFReader().convert_pdf_to_txt(data_spec_path)
         DataExtraction().extract_data_spec("data/tsm_link_and_node_info_v2.csv")
 
+        DataExtraction().extract_traffic_report()
+
     def read_tsm(self):
         # Extraction the TSM data for each time
         for xmlfile in os.listdir("data/tsm/"):
