@@ -60,11 +60,11 @@ class DataVisualization:
 
                     weight = 0
                     if node_detail.get('Road Saturation Level') == 'TRAFFIC GOOD':
-                        weight = 4
+                        weight = 0.5
                     elif node_detail.get('Road Saturation Level') == 'TRAFFIC AVERAGE':
                         weight = 2
                     elif node_detail.get('Road Saturation Level') == 'TRAFFIC BAD':
-                        weight = 0.5
+                        weight = 4
 
                     heat_map_point = heat_map_point + \
                                      '{{location: new google.maps.LatLng({}, {}), weight: {}}},\n'.format(sn_latitude, sn_longitude, weight)

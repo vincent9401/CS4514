@@ -24,6 +24,10 @@ class MongoDBConnection:
         collection = db.traffic_accidents
         return collection
 
+    def use_collection_tsm_test(self, db):
+        collection = db.tsm_test
+        return collection
+
     def insert_document(self, collection, document):
         collection.insert(document)
 
