@@ -1,0 +1,15 @@
+The program should deploy in Linux environment. Software or packages should be installed below.
+
+Software
+- Docker-CE
+
+PIP Package manager
+- python
+- pdfminer
+- pymongo
+- sklearn
+- numpy
+- pandas
+
+Docker is used to deploy MongoDB.
+Mongo image should be pull in docker and execute it in Docker container in order to open the MongoDB service.

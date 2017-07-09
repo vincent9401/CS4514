@@ -105,23 +105,45 @@ class DataAnalysis:
         sklearn.datasets.dump_svmlight_file(X, y, 'data/tsm_train.svm', zero_based=True, comment=None, query_id=None, multilabel=False)
         #print X
 
-    def get_data(self):
-        data = load_svmlight_file("data/tsm_train.svm")
+
+    def get_data(self, path):
+        data = load_svmlight_file(path)
         return data[0], data[1]
 
-    def training(self):
-        X_train, y_train = self.get_data()
+
+    def data_fitting(self):
+        X_train, y_train = self.get_data("data/tsm_train.svm")
+        X_test, y_test = self.get_data("data/tsm_test.svm")
         clf = svm.SVC(kernel='linear')
         clf.fit(X_train, y_train)
 
-DataAnalysis().data_covert()
+        print clf.predict([[2., 2.]])
+
+
+        w = clf.coef_[0]
+        print(w)
+
+        a = -w[0] / w[1]
+
+        xx = np.linspace(0, 12)
+        yy = a * xx - clf.intercept_[0] / w[1]
+
+        h0 = plt.plot(xx, yy, 'k-', label="non weighted div")
+
+        plt.scatter(X_train[:, 0], X_train[:, 1], c=y)
+        plt.legend()
+        plt.show()
+
+
+DataAnalysis().data_fitting()
 
 
 '''
+# Reference: https://kukuruku.co/post/introduction-to-machine-learning-with-python-andscikit-learn/
     def data_loading(self):
         import numpy as np
 
-        raw_data = open('data/tsm_link_and_node_info_v2.csv', 'r')
+        raw_data = open('data/tsm.csv', 'r')
         # load the CSV file as a numpy matrix
         dataset = np.loadtxt(raw_data, delimiter=",")
         # separate the data from the target attributes
@@ -135,7 +157,7 @@ DataAnalysis().data_covert()
         import numpy as np
 
         # create data frame containing your data, each column can be accessed # by df['column   name']
-        df = pd.read_csv('/your/path/yourFile.csv')
+        df = pd.read_csv('~.csv')
 
         target_names = np.array(['Positives', 'Negatives'])
 
